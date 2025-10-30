@@ -1,0 +1,6 @@
+# This file tells Netlify where to find our backend function.
+# This file MUST be in the main (root) folder of your project.
+
+[build]
+  # This is the directory where we will put our function file.
+  functions = "netlify/functions/"
