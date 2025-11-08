@@ -6,6 +6,8 @@
     <title>Abnel Pradhan — Dynamic Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
@@ -80,7 +82,7 @@
             animation: fadeInUp 0.6s ease-out 0.2s backwards;
         }
 
-        /* Typewriter styles */
+        /* NEW: Typewriter styles */
         .typewriter {
             white-space: pre; /* preserve spaces */
             display: inline-block;
@@ -98,7 +100,7 @@
             50%, 100% { opacity: 0; }
         }
 
-        /* Skill icons animation */
+        /* NEW: Skill icons animation */
         .skill-card {
             transition: transform 220ms ease, box-shadow 220ms ease;
         }
@@ -143,43 +145,40 @@
             mix-blend-mode: hard-light; /* Blends colors nicely */
         }
 
-        /* (loading overlay removed) */
-
         /* Respect reduced motion: hide heavy animations */
         @media (prefers-reduced-motion: reduce) {
             .animate-slide-in-down,
             .animate-slide-in-up,
             .animate-fade-in-up,
             .skill-card,
-            .project-card {
+            .project-card,
+            .animated-gradient-border::before,
+            .aurora-blob {
                 transition: none !important;
                 animation: none !important;
             }
-            /* loading overlay removed */
         }
     </style>
 </head>
 <body class="bg-gray-950 text-gray-200 font-sans">
 
-    <!-- loading overlay removed -->
-
-    <div class="aurora-background fixed top-0 left-0 w-full h-full overflow-hidden" style="z-index:-10;">
+    <div class="aurora-background fixed top-0 left-0 w-full h-full z-[-10] overflow-hidden">
         <div class="aurora-blob w-[500px] h-[500px] bg-indigo-500 top-[10vh] left-[10vw]" style="animation: moveBlob1 20s infinite alternate;"></div>
         <div class="aurora-blob w-[400px] h-[400px] bg-purple-500 top-[40vh] left-[60vw]" style="animation: moveBlob2 25s infinite alternate;"></div>
         <div class="aurora-blob w-[450px] h-[450px] bg-pink-500 top-[60vh] left-[30vw]" style="animation: moveBlob3 18s infinite alternate;"></div>
     </div>
 
-
-    <header class="relative z-50 sticky top-0 bg-gray-950/70 backdrop-blur-lg shadow-xl border-b border-indigo-500/30">
+    <header class="sticky top-0 z-50 bg-gray-950/70 backdrop-blur-lg shadow-xl border-b border-indigo-500/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 
                 <div class="flex items-center gap-4">
                     <div class="relative w-12 h-12 animated-gradient-border rounded-full p-0.5 overflow-hidden hidden md:block">
                         <img 
-                            src="profile.jpg"
+                            src="profile.jpg" 
                             alt="Abnel Pradhan" 
                             class="w-full h-full rounded-full object-cover relative z-10"
+                            onerror="this.src='https://placehold.co/100x100/1e1b4b/a5b4fc?text=AP'"
                         >
                     </div>
                     <a class="text-2xl font-bold text-white hover:text-indigo-400 transition duration-300" href="#">
@@ -195,7 +194,6 @@
                     <a href="#contact" class="text-gray-300 hover:text-indigo-400 transition duration-300 font-medium">Contact</a>
                 </nav>
 
-                <!-- Social icons (desktop) -->
                 <div class="hidden md:flex items-center gap-4 ml-6">
                     <a href="https://github.com/abnel-pradhan" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="text-gray-300 hover:text-white transition transform hover:scale-110">
                         <img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub" class="w-5 h-5" />
@@ -225,7 +223,7 @@
         </div>
     </header>
 
-    <main class="relative z-10">
+    <main>
         <section id="home" class="hero min-h-screen flex items-center justify-center text-center p-4 border-b border-gray-700/50">
             <div class="hero-inner max-w-4xl space-y-6">
                 <h1 class="text-6xl sm:text-7xl lg:text-8xl animate-slide-in-down">
@@ -309,13 +307,11 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-4xl font-extrabold text-white text-center mb-12 animate-fade-in-up">My Core Skills</h2>
                 <div class="flex flex-wrap justify-center gap-4" id="skill-list">
-                    <!-- JavaScript -->
                     <div class="skill-card bg-white/10 backdrop-blur-sm p-4 rounded-lg shadow-lg border border-white/10 transition duration-300 hover:border-indigo-400 animate-fade-in-up flex flex-col items-center" data-skill="JavaScript (ES6+)" style="animation-delay: 0.1s;">
                         <img src="https://cdn.simpleicons.org/javascript/f7df1e" alt="JavaScript" class="skill-icon w-12 h-12 object-contain" onerror="handleIconError(this, 'JS')" />
                         <p class="mt-2 text-sm font-medium text-white">JavaScript</p>
                     </div>
 
-                    <!-- React + Next.js -->
                     <div class="skill-card bg-white/10 backdrop-blur-sm p-4 rounded-lg shadow-lg border border-white/10 transition duration-300 hover:border-indigo-400 animate-fade-in-up flex flex-col items-center" data-skill="React & Next.js" style="animation-delay: 0.2s;">
                         <div class="flex items-center gap-2">
                             <img src="https://cdn.simpleicons.org/react/61dafb" alt="React" class="skill-icon w-12 h-12 object-contain" onerror="handleIconError(this, 'React')" />
@@ -326,13 +322,11 @@
                         <p class="mt-2 text-sm font-medium text-white">React · Next.js</p>
                     </div>
 
-                    <!-- Tailwind CSS -->
                     <div class="skill-card bg-white/10 backdrop-blur-sm p-4 rounded-lg shadow-lg border border-white/10 transition duration-300 hover:border-indigo-400 animate-fade-in-up flex flex-col items-center" data-skill="Tailwind CSS" style="animation-delay: 0.3s;">
                         <img src="https://cdn.simpleicons.org/tailwindcss/06b6d4" alt="Tailwind CSS" class="skill-icon w-12 h-12 object-contain" onerror="handleIconError(this, 'TW')" />
                         <p class="mt-2 text-sm font-medium text-white">Tailwind CSS</p>
                     </div>
 
-                    <!-- Node.js + Express -->
                     <div class="skill-card bg-white/10 backdrop-blur-sm p-4 rounded-lg shadow-lg border border-white/10 transition duration-300 hover:border-indigo-400 animate-fade-in-up flex flex-col items-center" data-skill="Node.js & Express" style="animation-delay: 0.4s;">
                         <div class="flex items-center gap-2">
                             <img src="https://cdn.simpleicons.org/nodedotjs/339933" alt="Node.js" class="skill-icon w-12 h-12 object-contain" onerror="handleIconError(this, 'Node')" />
@@ -343,7 +337,6 @@
                         <p class="mt-2 text-sm font-medium text-white">Node.js · Express</p>
                     </div>
 
-                    <!-- SQL / NoSQL Databases -->
                     <div class="skill-card bg-white/10 backdrop-blur-sm p-4 rounded-lg shadow-lg border border-white/10 transition duration-300 hover:border-indigo-400 animate-fade-in-up flex flex-col items-center" data-skill="SQL/NoSQL Databases" style="animation-delay: 0.5s;">
                         <div class="flex items-center gap-2">
                             <img src="https://cdn.simpleicons.org/mongodb/47a248" alt="MongoDB" class="skill-icon w-12 h-12 object-contain" onerror="handleIconError(this, 'MDB')" />
@@ -352,7 +345,6 @@
                         <p class="mt-2 text-sm font-medium text-white">MongoDB · PostgreSQL</p>
                     </div>
 
-                    <!-- Git & DevOps -->
                     <div class="skill-card bg-white/10 backdrop-blur-sm p-4 rounded-lg shadow-lg border border-white/10 transition duration-300 hover:border-indigo-400 animate-fade-in-up flex flex-col items-center" data-skill="Git & DevOps" style="animation-delay: 0.6s;">
                         <div class="flex items-center gap-2">
                             <img src="https://cdn.simpleicons.org/git/f05032" alt="Git" class="skill-icon w-12 h-12 object-contain" onerror="handleIconError(this, 'Git')" />
@@ -361,7 +353,6 @@
                         <p class="mt-2 text-sm font-medium text-white">Git · Docker</p>
                     </div>
 
-                    <!-- Web Development (HTML/CSS/JS) -->
                     <div class="skill-card bg-white/10 backdrop-blur-sm p-4 rounded-lg shadow-lg border border-white/10 transition duration-300 hover:border-indigo-400 animate-fade-in-up flex flex-col items-center" data-skill="Web development" style="animation-delay: 0.7s;">
                         <div class="flex items-center gap-2">
                             <img src="https://cdn.simpleicons.org/html5/e34f26" alt="HTML5" class="skill-icon w-12 h-12 object-contain" onerror="handleIconError(this, 'HTML')" />
@@ -400,7 +391,10 @@
                 <h2 class="text-4xl font-extrabold text-white text-center mb-10 animate-fade-in-up">Get in Touch</h2>
                 <p class="text-center text-gray-300 mb-8 animate-fade-in-up" style="animation-delay: 0.2s;">Ready to start a project? Send me a message, and I'll get back to you as soon as possible.</p>
 
-                <form id="contactForm" novalidate class="space-y-6 bg-white/5 backdrop-blur-md p-8 rounded-2xl shadow-2xl border border-white/10 animate-fade-in-up" style="animation-delay: 0.4s;">
+                <form id="contactForm" name="contact" method="POST" data-netlify="true" novalidate class="space-y-6 bg-white/5 backdrop-blur-md p-8 rounded-2xl shadow-2xl border border-white/10 animate-fade-in-up" style="animation-delay: 0.4s;">
+                    
+                    <input type="hidden" name="form-name" value="contact" />
+
                     <div class="form-row">
                         <label for="name" class="block text-sm font-medium text-gray-200 mb-1">Name</label>
                         <input id="name" name="name" type="text" required class="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white focus:ring-indigo-500 focus:border-indigo-500" />
@@ -423,23 +417,16 @@
             </div>
         </section>
     </main>
-    <footer class="relative z-10 bg-transparent border-t border-indigo-700/50 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <p class="order-2 md:order-1">© <span id="year"></span> Abnel Pradhan — All right reserved 2025</p>
 
-                <div class="order-1 md:order-2 flex items-center justify-center gap-4">
-                    <!-- footer intentionally left without social icons (moved to header) -->
-                </div>
-            </div>
+    <footer class="bg-transparent border-t border-indigo-700/50 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400">
+            <p>© <span id="year"></span> Abnel Pradhan — All rights reserved</p>
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script>
-        // --- Gemini API Configuration ---
-        const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent";
-        const API_KEY = ""; // Canvas environment will provide the API key
+        // --- API Configuration Removed ---
+        // We call our own secure Netlify Function.
 
         // Global state variables
         let chatHistory = [];
@@ -447,6 +434,31 @@
         let userSkills = [];
         let userProjects = [];
         let SYSTEM_INSTRUCTION_BASE = ""; // Will be set during DOMContentLoaded
+
+        /**
+         * Simple exponential backoff retry mechanism.
+         * @param {function} fn - The async function to retry.
+         * @param {number} retries - Number of retries.
+         * @param {number} delay - Initial delay in ms.
+         */
+        async function fetchWithBackoff(fn, retries = 3, delay = 1000) {
+            let lastError;
+            for (let i = 0; i < retries; i++) {
+                try {
+                    return await fn();
+                } catch (error) {
+                    lastError = error;
+                    if (error.status === 429 || error.status >= 500) {
+                        // Only retry on rate limiting or server errors
+                        await new Promise(resolve => setTimeout(resolve, delay * Math.pow(2, i)));
+                    } else {
+                        // Don't retry on other errors (e.g., 400 Bad Request)
+                        throw error;
+                    }
+                }
+            }
+            throw lastError;
+        }
 
         /**
          * Creates and displays a message bubble in the chat window.
@@ -459,51 +471,39 @@
             
             const isTypingIndicator = text === 'typing';
 
-            // Escape HTML and render a small subset of Markdown safely
+            // --- NEW: Added Markdown/HTML Escaping ---
             function escapeHtml(unsafe) {
+                if (!unsafe) return '';
                 return unsafe
-                    .replace(/&/g, '&amp;')
-                    .replace(/</g, '&lt;')
-                    .replace(/>/g, '&gt;')
-                    .replace(/"/g, '&quot;')
-                    .replace(/'/g, '&#039;');
+                     .replace(/&/g, '&amp;')
+                     .replace(/</g, '&lt;')
+                     .replace(/>/g, '&gt;')
+                     .replace(/"/g, '&quot;')
+                     .replace(/'/g, '&#039;');
             }
 
             function renderMarkdown(md) {
                 if (!md) return '';
-                // Start by escaping to prevent HTML injection
                 let s = escapeHtml(md);
-
-                // inline code
                 s = s.replace(/`([^`]+?)`/g, '<code>$1</code>');
-
-                // links [text](url) - only allow http/https
                 s = s.replace(/\[([^\]]+?)\]\((https?:\/\/[^)]+?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-
-                // bold **text** or __text__
                 s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
                 s = s.replace(/__(.+?)__/g, '<strong>$1</strong>');
-
-                // italic *text* or _text_
                 s = s.replace(/\*(.+?)\*/g, '<em>$1</em>');
                 s = s.replace(/_(.+?)_/g, '<em>$1</em>');
-
-                // convert line breaks
                 s = s.replace(/\n/g, '<br>');
-
                 return s;
             }
+            // --- End of new functions ---
 
             if (sender === 'user') {
-                // User message styling
                 messageContainer.className = 'flex justify-end';
                 messageContainer.innerHTML = `
                     <div class="bg-indigo-600 text-white max-w-xs md:max-w-md lg:max-w-lg p-3 rounded-xl rounded-br-none shadow-md">
-                        ${renderMarkdown(text)}
+                        ${renderMarkdown(text)} 
                     </div>
                 `;
             } else {
-                // Bot message styling (UPDATED for glass UI)
                 messageContainer.className = 'flex justify-start';
                 if (isTypingIndicator) {
                     messageContainer.id = 'typing-indicator';
@@ -539,7 +539,7 @@
             }
         }
 
-        // Fallback for icons that fail to load from CDN
+        // --- NEW: Added Icon Error Fallback ---
         function handleIconError(imgEl, label) {
             try {
                 const fallback = document.createElement('div');
@@ -547,13 +547,13 @@
                 fallback.textContent = label;
                 imgEl.replaceWith(fallback);
             } catch (e) {
-                // last resort: hide the broken image
                 imgEl.style.display = 'none';
             }
         }
 
         /**
          * Handles the sending of a user message and getting the AI response.
+         * (This uses the working Netlify Function logic)
          */
         async function handleSendMessage() {
             if (botIsTyping) return;
@@ -582,18 +582,25 @@
             };
 
             try {
-                const response = await fetch(API_URL + `?key=${API_KEY}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
+                // This is the working API call to our Netlify Function
+                const apiCall = async () => {
+                    const response = await fetch("/.netlify/functions/chat", { 
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
 
-                if (!response.ok) {
-                    const errorBody = await response.text();
-                    throw new Error(`HTTP error! status: ${response.status} ${errorBody}`);
-                }
+                    if (!response.ok) {
+                        const errorBody = await response.text();
+                        const error = new Error(`HTTP error! status: ${response.status} ${errorBody}`);
+                        error.status = response.status;
+                        throw error;
+                    }
+                    return response.json();
+                };
 
-                const result = await response.json();
+                const result = await fetchWithBackoff(apiCall);
+                
                 const generatedText = result.candidates?.[0]?.content?.parts?.[0]?.text;
 
                 removeTypingIndicator(); 
@@ -602,11 +609,12 @@
                     displayMessage('model', generatedText);
                     chatHistory.push({ role: 'model', parts: [{ text: generatedText }] });
                 } else {
-                    displayMessage('model', 'I apologize, I ran into an issue and cannot answer that right now.');
+                    const errorText = result.error || 'I apologize, I ran into an issue and cannot answer that right now.';
+                    displayMessage('model', errorText);
                 }
 
             } catch (error) {
-                console.error("Gemini API Error:", error);
+                console.error("Chat Error:", error);
                 removeTypingIndicator();
                 displayMessage('model', 'An error occurred while connecting to the AI service. Please try again.');
             } finally {
@@ -624,8 +632,7 @@
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
             const contactForm = document.getElementById('contactForm');
-            const formFeedback = document.getElementById('formFeedback');
-            const navLinks = document.querySelectorAll('#main-nav-desktop a, #mobile-menu a'); // UPDATED: Select all nav links
+            const navLinks = document.querySelectorAll('#main-nav-desktop a, #mobile-menu a'); // Select all nav links
             const chatInput = document.getElementById('chat-input');
             const sendBtn = document.getElementById('send-btn');
 
@@ -639,7 +646,7 @@
                 desc: el.getAttribute('data-project-desc')
             }));
             
-            // 3. System Instruction (Unchanged)
+            // 3. System Instruction
             const skillList = userSkills.join(', ');
             const projectList = userProjects.map(p => `${p.title}: ${p.desc}`).join(' | ');
             
@@ -670,20 +677,18 @@
                 });
             }
 
-            // 6. Standard Event Listeners (mobile menu and form)
+            // 6. Mobile Menu Listeners
             if (mobileMenuButton) {
                 mobileMenuButton.addEventListener('click', () => {
                     mobileMenu.classList.toggle('hidden');
                 });
             }
 
-            // UPDATED: Close mobile menu when a link is clicked and animate page transitions for anchors
+            // --- NEW: GSAP Page Transitions for Nav Links ---
             function pageTransitionTo(hash) {
                 const mainEl = document.querySelector('main');
                 return new Promise((resolve) => {
-                    // animate out
                     gsap.to(mainEl, { duration: 0.45, y: 20, opacity: 0, ease: 'power1.inOut', onComplete: () => {
-                        // jump/scroll to target
                         if (hash) {
                             const target = document.querySelector(hash);
                             if (target) target.scrollIntoView({ behavior: 'auto', block: 'start' });
@@ -691,8 +696,6 @@
                         } else {
                             window.scrollTo({ top: 0, behavior: 'auto' });
                         }
-
-                        // animate in
                         gsap.fromTo(mainEl, { y: 20, opacity: 0 }, { duration: 0.45, y: 0, opacity: 1, ease: 'power1.inOut', onComplete: resolve });
                     }});
                 });
@@ -703,40 +706,60 @@
                     const href = link.getAttribute('href');
                     const hash = href && href.startsWith('#') ? href : null;
 
-                    // Close mobile menu if open
                     if (!mobileMenu.classList.contains('hidden')) {
                         mobileMenu.classList.add('hidden');
                     }
 
                     if (hash) {
                         e.preventDefault();
-                        // run transition
                         pageTransitionTo(hash);
                     }
                 });
             });
+            // --- End of new nav logic ---
 
+            // 7. Contact Form Listener (This is the working Netlify AJAX submission)
             if (contactForm) {
                 contactForm.addEventListener('submit', function(event) {
-                    event.preventDefault(); 
-                    if (!contactForm.checkValidity()) {
-                        formFeedback.textContent = 'Please fill out all required fields correctly.';
-                        formFeedback.classList.add('text-red-400');
-                        formFeedback.classList.remove('text-green-400');
+                    event.preventDefault(); // Stop default HTML submission
+
+                    const form = event.target;
+                    const feedback = document.getElementById('formFeedback');
+
+                    if (!form.checkValidity()) {
+                        feedback.textContent = 'Please fill out all required fields correctly.';
+                        feedback.classList.add('text-red-400');
+                        feedback.classList.remove('text-green-400');
                         return;
                     }
-                    formFeedback.textContent = 'Thank you, your message has been sent!';
-                    formFeedback.classList.add('text-green-400');
-                    formFeedback.classList.remove('text-red-400');
 
-                    setTimeout(() => {
-                        contactForm.reset();
-                        formFeedback.textContent = '';
-                    }, 3000);
+                    const formData = new FormData(form);
+                    
+                    fetch("/", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                        body: new URLSearchParams(formData).toString()
+                    })
+                    .then(() => {
+                        feedback.textContent = 'Thank you, your message has been sent!';
+                        feedback.classList.add('text-green-400');
+                        feedback.classList.remove('text-red-400');
+
+                        setTimeout(() => {
+                            form.reset();
+                            feedback.textContent = '';
+                        }, 3000);
+                    })
+                    .catch((error) => {
+                        feedback.textContent = 'Error sending message. Please try again.';
+                        feedback.classList.add('text-red-400');
+                        feedback.classList.remove('text-green-400');
+                        console.error('Form submission error:', error);
+                    });
                 });
             }
 
-            // --- Typewriter animation for hero title + subtitle ---
+            // --- NEW: Typewriter animation for hero title + subtitle ---
             function typeText(element, text, speed = 50) {
                 return new Promise((resolve) => {
                     let i = 0;
@@ -763,47 +786,52 @@
                 const titleText = "Hi, I'm Abnel.";
                 const subText = "Welcome to my portfolio. BCA student skilled in coding, video editing, and creative AI tools.";
 
-                // hide the slide-in initial classes to avoid conflict, we'll reveal via typing
-                titleEl.classList.remove('animate-slide-in-down');
-                subEl.classList.remove('animate-slide-in-up');
+                // hide the slide-in initial classes to avoid conflict
+                titleEl.closest('h1').classList.remove('animate-slide-in-down');
+                subEl.closest('p').classList.remove('animate-slide-in-up');
 
                 await typeText(titleEl, titleText, 70);
-                // keep title cursor hidden after typing
                 if (cursorTitle) cursorTitle.style.display = 'none';
-
-                // small pause before subtitle
                 await new Promise(r => setTimeout(r, 300));
-
                 await typeText(subEl, subText, 30);
                 if (cursorSub) cursorSub.style.display = 'none';
             }
 
-            // loading animation removed per user request
-
-            // Scroll-triggered animations (IntersectionObserver + GSAP)
+            // --- NEW: Scroll-triggered animations (IntersectionObserver + GSAP) ---
             function setupScrollAnimations() {
                 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
                 if (prefersReduced) return;
+
+                // Set initial state for all animated elements
+                gsap.set('.animate-fade-in-up, .project-card, .skill-card', { y: 20, opacity: 0 });
 
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             const el = entry.target;
-                            gsap.to(el, { y: 0, opacity: 1, duration: 0.6, ease: 'power1.out', overwrite: true });
+                            // Use the delay from the style attribute, or default to 0.2s
+                            const delay = parseFloat(el.style.animationDelay || '0.2s') || 0.2;
+                            
+                            gsap.to(el, { 
+                                y: 0, 
+                                opacity: 1, 
+                                duration: 0.6, 
+                                delay: delay, 
+                                ease: 'power1.out', 
+                                overwrite: true 
+                            });
                             observer.unobserve(el);
                         }
                     });
                 }, { threshold: 0.15 });
 
-                // target elements with the animate-fade-in-up class as well as hero-inner and project cards
-                const targets = document.querySelectorAll('.animate-fade-in-up, .hero-inner, .project-card, .skill-card');
+                const targets = document.querySelectorAll('.animate-fade-in-up, .project-card, .skill-card');
                 targets.forEach(el => {
-                    gsap.set(el, { y: 20, opacity: 0 });
                     observer.observe(el);
                 });
             }
 
-            // Start scroll animations and hero typewriter
+            // Start animations
             setupScrollAnimations();
             runHeroTypewriter();
         });
